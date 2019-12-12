@@ -1,0 +1,36 @@
+import React from 'react';
+import Loader from 'react-loader-spinner';
+
+// redux stuff
+import { connect } from 'react-redux';
+import { getBeer } from '../actions';
+
+const BeerCards = props => {
+
+  return (
+    <div>
+      <h1>Louisiana Brewery's</h1>
+      {!props.state && <p>Go ahead! Fetch a brew!</p>}
+      {props.isFetching && (
+        <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={100}
+          width={100}
+        />
+      )}
+      <button onClick={props.getBeer}>List of Brewery's!</button>
+    </div>
+  )
+}
+
+const mapStateToProps = state => {
+  console.log(state)
+  return{
+    state: state.state,
+    isFetching: state.isFetching,
+    error: state.error
+  }
+}
+
+export default connect(mapStateToProps, { getBeer })(BeerCards);
