@@ -9,6 +9,9 @@ export const getBeer = () => dispatch => {
   axios
     .get('https://api.openbrewerydb.org/breweries?by_state=louisiana')
     .then(res => {
-      console.log(res.data)
+      dispatch({ type: FETCH_BEER_SUCCESS, payload: res.data })
+    })
+    .catch(err => {
+      dispatch({ type: FETCH_BEER_START, payload: err.response })
     })
 }
